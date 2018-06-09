@@ -88,7 +88,7 @@ new Vue({
       - <span v-on:mousemove.stop="">DEAD SPOT</span>
     </p>
   </div>
-  
+
   new Vue({
   	el: "#app",
     data: {
@@ -107,4 +107,27 @@ new Vue({
       }
     }
   })
+  ```
+### Two way binding
+- Two way binding allows a field to:
+  1. fetch default value from `data`
+  2. allow changes of the field be reflected on other places where that
+     particular `data` was referred
+- Two way binding directive: `v-model="<data>"`
+  ```
+  Example:
+  ...<script> for vue js...
+  <div id="app">
+    <input type="text" v-model="name">
+    <p>{{name}}</p?
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        name: "My Name"
+      }
+    });
+  </script>
   ```
