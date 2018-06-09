@@ -55,21 +55,56 @@ new Vue({
     </script>
   ```
 ### Events
-- `v-on:<event>="<function>"` directive allows Vue.js to bind an event to a certain element
+- `v-on:<event>="<function>(paramters)"` directive allows Vue.js to bind an event to a certain element.
+  Once you have customized arguments, you can use $event to pass the event object into methods.
   ```
   Example:
     <div id="test">
-      <button v-on:click="hello">
+      <button v-on:click="hello($event)">
     </div>
 
     <script>
       new Vue({
         el: "test",
         methods: {
-          hello: function(){
+          hello: function(event){
             alert("hello");
           }
         }
       })
     </script>
     ```
+### Event modifiers
+- Modify events that are currently bounded to elements so it can exhibit different behavior
+  ```
+  Example:
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <div id="app">
+    <button v-on:click="incr($event)">Click me</button>
+    <p>{{counter}}</p>
+    <p v-on:mousemove="updateCoord">
+      coordinates: {{x}} / {{y}}
+      - <span v-on:mousemove.stop="">DEAD SPOT</span>
+    </p>
+  </div>
+  
+  new Vue({
+  	el: "#app",
+    data: {
+    	x: 0,
+      y: 0,
+    	counter: 0
+    },
+    methods: {
+    	incr: function(event){
+      	this.counter += 2;
+        console.log(event);
+      },
+      updateCoord: function(event){
+      	this.x = event.clientX;
+        this.y = event.clientY;
+      }
+    }
+  })
+  ```
