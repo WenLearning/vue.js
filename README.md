@@ -131,3 +131,54 @@ new Vue({
     });
   </script>
   ```
+# Computed property
+- Computed property allows you to only update certain properties that related
+  to the property
+- For example, if we have two buttons that updates two separated counter, one
+  would certainly want only to execute functions that only related to that
+  particular counter. In methods, it will run every time no matter the method
+  changes the counter or not.
+  - Computer property, on the other hand, will only execute IFF the particular
+    counter got touched
+  ```
+  Example:
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <div id="app">
+    <button v-on:click="incr">Increase First</button>
+    <button v-on:click="incr2">Increase Second</button>
+    <p>Counter: {{counter}} | {{counter2}}</p>
+    <!-- Computed property is called as property instead of as methods -->
+    <p>Result: {{result()}} | {{cachedResult}}</p>
+  </div>
+
+  new Vue({
+  	el: "#app",
+    data: {
+    	counter: 0,
+      counter2: 0
+    },
+    computed: {
+      # this will run only counter got updated, counter2's update won't matter
+    	cachedResult: function(){
+      	console.log("cached");
+        return this.counter > 1 ? "> 1" : "<= 1";
+      }
+    },
+    methods: {
+      # will update counter
+    	incr: function(){
+      	this.counter++;
+      },
+      # will update counter2
+      incr2: function(){
+      	this.counter2++;
+      },
+      # This will run no matter which counter got updated
+      result: function(){
+      	console.log("run everytime");
+      	return this.counter > 1 ? "> 1" : "<= 1";
+      }
+    }
+  })
+  ```
